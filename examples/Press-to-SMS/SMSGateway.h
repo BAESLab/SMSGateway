@@ -59,8 +59,8 @@ private:
  
 public:
    int scanBLE();
-   int checkPressAlert(int num);
-   bool checkLossAlert(int num, int rssi);
+   int buttonsPressed(int num);
+   bool isLoss(int num, int rssi);
    bool sendSMS(int numberAlert, const char message[]);
    bool sendSMS(const char message[]);
    bool isSIM();

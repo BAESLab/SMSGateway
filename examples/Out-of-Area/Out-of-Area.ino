@@ -5,38 +5,40 @@
 #include <LGSM.h>
 #include "SMSGateway.h"
 
-SMSGateway s;
-bool flagAlert = false;
-int numberAlert = 0;
+#define SMS_TIMEOUT 30
+
+SMSGateway gateway;
+bool smsFlag = false;
+int numberOfButtonsPressed = 0;
 unsigned int timeOut = 0;
 
 void setup() {
   
     delay(3000);
     Serial.begin(115200);
-    s.begin();
+    gateway.begin();
 }
 
 void loop() {
 
-   int member = s.scanBLE();
+   int member = gateway.scanBLE();
 
-   if(!s.checkLossAlert(member, -90)){
+   if(!gateway.isLoss(member, -90)){
       Serial.println("+++++++++++ Alert ++++++++++++");
-      flagAlert = true;
+      smsFlag = true;
    }
      
-   if(s.isSIM()){
-       if(flagAlert){
+   if(gateway.isSIM()){
+       if(smsFlag){
            if(timeOut == 0){
-              if(s.sendSMS("Out Of Area.")){
+              if(gateway.sendSMS("Out Of Area.")){
                 Serial.println("Send SMS complete.");
               }
            }    
-            delay(1); 
+
             timeOut++;
-            if(timeOut >= 60000){ // Time out sent SMS 60 second.
-              flagAlert = false;
+            if(timeOut >= SMS_TIMEOUT){ // Time out sent SMS 30 second.
+              smsFlag = false;
               timeOut = 0;
             }
        }

@@ -129,11 +129,11 @@ bool SMSGateway::getConfig(String strConfig[], byte *len, byte mode){
 
 int SMSGateway::scanBLE()
 { 
-     return c.scan(1);
+     return c.scan(1);  //Time out 1S.
 }
 
 
-int SMSGateway::checkPressAlert(int num)
+int SMSGateway::buttonsPressed(int num)
 {
   LGATTDeviceInfo info = {0};
    typeBLEInfo mInfo;
@@ -176,7 +176,7 @@ int SMSGateway::checkPressAlert(int num)
 }
 
 
-bool SMSGateway::checkLossAlert(int num, int rssi)
+bool SMSGateway::isLoss(int num, int rssi)
 {
   static bool fristScand = false;
    LGATTDeviceInfo info = {0};
@@ -282,7 +282,6 @@ bool SMSGateway::sendSMS(const char message[])
 
  return true; 
 }
-
 
 
 bool SMSGateway::isSIM() //Check status SIM.
