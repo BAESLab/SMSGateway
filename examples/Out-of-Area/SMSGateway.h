@@ -7,6 +7,9 @@
 #include <LStorage.h>
 #include <LGSM.h>
 
+#define LED_POWER 12
+#define LED_SIGNAL 13 
+
 #define SIZE_OF_STR_TIME_INTERVAL 13
 #define SIZE_OF_STR_PHONE_NUMBER  12
 #define SIZE_OF_PHONE_NUMBER 10
@@ -47,8 +50,8 @@ public:
 private:
  typeBLEInfo BLEInfo[MAX_DEVICE_BLE_INFO];
 
- String str1 = "time_interval";
- String str2 = "phone_number";
+ String str1 ;
+ String str2 ;
  String phoneNuber[MAX_PHONE_NUMBER];
  String timeIntervalString[2];
  unsigned long timeInterval;

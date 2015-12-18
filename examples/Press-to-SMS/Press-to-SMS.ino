@@ -38,7 +38,7 @@ void loop() {
                 Serial.println("Send SMS complete.");
               }
            }    
-        //    delay(1); 
+            digitalWrite(LED_SIGNAL, !digitalRead(LED_SIGNAL)); //Toggle LED
             timeOut++;
             if(timeOut >= SMS_TIMEOUT){ // Time out sent SMS 30 second.
               smsFlag = false;

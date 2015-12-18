@@ -6,6 +6,7 @@
 #include "SMSGateway.h"
 
 #define SMS_TIMEOUT 30
+#define RSSI_SIGNAL -90
 
 SMSGateway gateway;
 bool smsFlag = false;
@@ -23,7 +24,7 @@ void loop() {
 
    int member = gateway.scanBLE();
 
-   if(!gateway.isLoss(member, -90)){
+   if(!gateway.isLoss(member, RSSI_SIGNAL)){
       Serial.println("+++++++++++ Alert ++++++++++++");
       smsFlag = true;
    }
@@ -35,7 +36,7 @@ void loop() {
                 Serial.println("Send SMS complete.");
               }
            }    
-
+            digitalWrite(LED_SIGNAL, !digitalRead(LED_SIGNAL)); //Toggle LED
             timeOut++;
             if(timeOut >= SMS_TIMEOUT){ // Time out sent SMS 30 second.
               smsFlag = false;

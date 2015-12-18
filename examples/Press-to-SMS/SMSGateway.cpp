@@ -7,6 +7,8 @@ SMSGateway::SMSGateway(void)
     countPN = 0;
     timeInterval = 0;
     mtimeInterval = 0;
+    str1 = "time_interval";
+    str2 = "phone_number";
 }
 
 SMSGateway::~SMSGateway(void)
@@ -16,6 +18,13 @@ SMSGateway::~SMSGateway(void)
 
 bool SMSGateway::begin()
 {
+  
+    pinMode(LED_POWER, OUTPUT);
+    pinMode(LED_SIGNAL, OUTPUT);
+    
+    digitalWrite(LED_POWER, HIGH);
+    digitalWrite(LED_SIGNAL, LOW);
+    
      // GATT central begin to start
     if (c.begin(myUUID))
     {
